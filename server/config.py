@@ -16,4 +16,8 @@ class __BaseConfig__:
     # 本地db配置
     SHELVE_DB_NAME = "./shelve/base-data"
 
+    # vts-status配置
+    VTS_STATUS_URL = "https://topbook.cc/lookup/status/control?cmd=status&group=filter&zone=*"
+    VTS_STATUS_ZONE = "uri::topbook.cc"
+
 base = __BaseConfig__()
