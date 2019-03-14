@@ -15,7 +15,7 @@ def create_app(configure):
     app.config.from_object(configure)
 
     # 配置shelve数据库
-    app.shelve_proxy = db.ShelveProxy(configure.SHELVE_DB_NAME)
+    app.shelve_proxy = db.ShelveProxy(configure.SHELVE_DB_HOME)
 
     # 日志系统
     if not os.path.exists(os.path.dirname(configure.LOGGER_FILE)):

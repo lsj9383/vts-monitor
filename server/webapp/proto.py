@@ -6,5 +6,3 @@ class EnumErrorCode:
     BadRequest = 1000
     InvalidParameter = 1001
     InternalServerError = 1001
-
-MAX_COUNT_VALUE = 100000000000

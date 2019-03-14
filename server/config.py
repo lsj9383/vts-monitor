@@ -14,10 +14,6 @@ class __BaseConfig__:
     LOGGER_FILE = "./logs/base.log"
 
     # 本地db配置
-    SHELVE_DB_NAME = "./shelve/base-data"
-
-    # vts-status配置
-    VTS_STATUS_URL = "https://topbook.cc/lookup/status/control?cmd=status&group=filter&zone=*"
-    VTS_STATUS_ZONE = "uri::topbook.cc"
+    SHELVE_DB_HOME = "../shelve_db/"
 
 base = __BaseConfig__()
