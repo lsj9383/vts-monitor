@@ -16,11 +16,18 @@ def test_running():
     return Result.success()
 
 # shelve的获取数据
-@blue_print.route('/db_get')
+@blue_print.route('/get')
 def shelve_value():
-    pass
+    today = time.strftime('%Y-%m-%d',time.localtime(time.time()))
+    date = request.args.get("date", today)
+    key = request.args.get("key")
+
+    db_proxy = current_app.shelve_proxy
+    return json.dumps(db_proxy.get_count_info(date, key))
+
 
 # shelve的获取keys
-@blue_print.route('/db_keys')
+@blue_print.route('/keys')
 def shelve_keys():
-    pass
+    db_proxy = current_app.shelve_proxy
+    return "hello"
