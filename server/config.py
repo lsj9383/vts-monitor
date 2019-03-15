@@ -4,7 +4,7 @@ import logging
 
 class __BaseConfig__:
     # 服务器基本配置
-    DEBUG = True
+    DEBUG = False
     PORT = 5000
     STATIC_FOLDER = "../../static"
 
