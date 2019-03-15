@@ -51,4 +51,4 @@ def shelve_keys():
     today = time.strftime('%Y-%m-%d',time.localtime(time.time()))
     date = request.args.get("date", today)
     db_proxy = current_app.shelve_proxy
-    return db_proxy.keys(date)
+    return json.dumps(db_proxy.keys(date))

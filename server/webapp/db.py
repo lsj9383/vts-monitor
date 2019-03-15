@@ -27,7 +27,10 @@ class ShelveProxy(object):
     def keys(self, date):
         db_name = "%s/counter-%s" % (self._db_home, date)
         lock_name = "%s/lock-%s" % (self._db_home, date)
+        ks = []
         with LockFile(lock_name, fcntl.LOCK_SH), \
             shelve.open(db_name, flag="r") as db:
             # 上文件锁 打开db
-            return db.keys()
+            for k in db.keys():
+                ks.append(k)
+        return ks
