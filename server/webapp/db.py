@@ -14,12 +14,20 @@ class ShelveProxy(object):
     def get_count_info(self, date, key):
         db_name = "%s/counter-%s" % (self._db_home, date)
         lock_name = "%s/lock-%s" % (self._db_home, date)
-        # 上文件锁
-        with LockFile(lock_name, fcntl.LOCK_SH):
-            with shelve.open(db_name, flag="r") as db:
-                if key:
-                    return {key : db.get(key)}
-                dic = {}
-                for k in db.keys():
-                    dic[k] = db[k]
-                return dic
+        with LockFile(lock_name, fcntl.LOCK_SH), \
+            shelve.open(db_name, flag="r") as db:
+            # 上文件锁 打开db
+            if key:
+                return {key : db.get(key)}
+            dic = {}
+            for k in db.keys():
+                dic[k] = db[k]
+            return dic
+
+    def keys(self, date):
+        db_name = "%s/counter-%s" % (self._db_home, date)
+        lock_name = "%s/lock-%s" % (self._db_home, date)
+        with LockFile(lock_name, fcntl.LOCK_SH), \
+            shelve.open(db_name, flag="r") as db:
+            # 上文件锁 打开db
+            return db.keys()
