@@ -17,7 +17,7 @@ def test_running():
 
 # shelve的获取数据
 @blue_print.route('/get')
-def shelve_value():
+def count_info():
     today = time.strftime('%Y-%m-%d',time.localtime(time.time()))
     date = request.args.get("date", today)
     key = request.args.get("key")
@@ -27,7 +27,7 @@ def shelve_value():
 
 # shelve的获取数据
 @blue_print.route('/get/pretty')
-def shelve_value():
+def count_info_pretty():
     today = time.strftime('%Y-%m-%d',time.localtime(time.time()))
     date = request.args.get("date", today)
     key = request.args.get("key")
@@ -48,5 +48,7 @@ def shelve_value():
 # shelve的获取keys
 @blue_print.route('/keys')
 def shelve_keys():
+    today = time.strftime('%Y-%m-%d',time.localtime(time.time()))
+    date = request.args.get("date", today)
     db_proxy = current_app.shelve_proxy
-    return db_proxy.keys()
+    return db_proxy.keys(date)
