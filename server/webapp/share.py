@@ -1,6 +1,7 @@
 # -*- coding:utf-8 -*-
 
 import fcntl
+import time
 from flask import jsonify
 from webapp.proto import EnumErrorCode
 
@@ -33,3 +34,27 @@ class LockFile:
     def __exit__(self, type, value, traceback):
         fcntl.flock(self._flock, fcntl.LOCK_UN)
         self._flock.close()
+
+class Watcher:
+    '''请求观察类, 该类用于观察请求的细节:
+        * 请求的id
+        * 请求的延时
+    '''
+    def __init__(self):
+        self._create = time.time()
+
+    def delayed(self):
+        '''输出延时
+        '''
+        now = time.time()
+        return int((now - self._create)*1000)
+
+    def create(self):
+        '''当前请求时间戳
+        '''
+        return self._create
+
+    def ident(self):
+        '''请求标识
+        '''
+        return id(self)

@@ -22,6 +22,7 @@ def create_app(configure):
     file_handler = logging.FileHandler(configure.LOGGER_FILE, encoding='UTF-8')
     file_handler.setLevel(configure.LOGGER_LEVEL)
     file_handler.setFormatter(logging.Formatter(configure.LOGGER_FORMAT))
+    app.logger.setLevel(configure.LOGGER_LEVEL)
     app.logger.addHandler(file_handler)
 
     # 注册蓝图
