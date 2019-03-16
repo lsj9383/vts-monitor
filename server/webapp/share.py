@@ -12,8 +12,11 @@ class Result(object):
         return jsonify({ "error_code" : EnumErrorCode.SUCCESS })
 
     @staticmethod
-    def error(error_code=EnumErrorCode.BadRequest):
-        return jsonify({ "error_code" : error_code })
+    def error(error_code=EnumErrorCode.BadRequest, message=None):
+        resp = { "error_code" : error_code }
+        if message:
+            resp["error_message"] = message
+        return jsonify(resp)
 
 class LockFile:
     '''文件锁

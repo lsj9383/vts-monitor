@@ -4,6 +4,13 @@ import os
 import shelve
 import fcntl
 from webapp.share import LockFile
+from webapp.exception import MonitorShelveOpenError
+
+def __open_shelve__(db_name, flag):
+    try:
+        return shelve.open(db_name, flag=flag)
+    except:
+        raise MonitorShelveOpenError()
 
 class ShelveProxy(object):
     '''shelve代理
@@ -15,7 +22,7 @@ class ShelveProxy(object):
         db_name = "%s/counter-%s" % (self._db_home, date)
         lock_name = "%s/lock-%s" % (self._db_home, date)
         with LockFile(lock_name, fcntl.LOCK_SH), \
-            shelve.open(db_name, flag="r") as db:
+            __open_shelve__(db_name, flag="r") as db:
             # 上文件锁 打开db
             if key:
                 return {key : db.get(key)}
@@ -29,7 +36,7 @@ class ShelveProxy(object):
         lock_name = "%s/lock-%s" % (self._db_home, date)
         ks = []
         with LockFile(lock_name, fcntl.LOCK_SH), \
-            shelve.open(db_name, flag="r") as db:
+            __open_shelve__(db_name, flag="r") as db:
             # 上文件锁 打开db
             for k in db.keys():
                 ks.append(k)
