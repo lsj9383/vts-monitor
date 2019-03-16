@@ -82,5 +82,9 @@ http://test.topbook.cc:5000/webapi/get?key=/webapi/user/profile
 http://test.topbook.cc:5000/webapi/keys
 ```
 
+## 三、解决方案
+### 1.*架构*
+整个架构规划如下, 只要Nginx启用了VTS模块的功能，本方案即可定期查询VTS信息，将信息按时间增量方式进行计算。
+[](docs/vts-monitor-arch.png)
 
-## 三、原理
+### 2.*数据存储方案*
