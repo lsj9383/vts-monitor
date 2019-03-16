@@ -25,7 +25,7 @@ class ShelveProxy(object):
             __open_shelve__(db_name, flag="r") as db:
             # 上文件锁 打开db
             if key:
-                return {key : db.get(key)}
+                return {key : db.get(key, [])}
             dic = {}
             for k in db.keys():
                 dic[k] = db[k]

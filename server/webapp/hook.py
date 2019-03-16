@@ -14,4 +14,4 @@ def register(app):
         message = str(e)
         status = __ok_request_status__
         error_result = (e.error_code(), message)
-        return (Result.error(e.error_code()), status)
+        return (Result.error(e.error_code(), message), status)

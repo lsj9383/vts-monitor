@@ -4,8 +4,7 @@ import os
 import logging
 from flask_session import Session
 from flask import Flask, g, Response
-from webapp import webapi
-from webapp import db
+from webapp import webapi, db, hook
 
 def create_app(configure):
     # 创建服务器
@@ -27,5 +26,8 @@ def create_app(configure):
 
     # 注册蓝图
     app.register_blueprint(webapi.blue_print, url_prefix='/webapi')
+
+    # 注册钩子
+    hook.register(app)
 
     return app

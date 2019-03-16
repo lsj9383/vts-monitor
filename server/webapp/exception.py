@@ -28,5 +28,5 @@ error_code_mapper = {
     MonitorBadRequest : 1001,
     MonitorInvalidRequest : 1002,
     MonitorInternalError : 1003,
-    MonitorShelveNotExist : 1004,
+    MonitorShelveOpenError : 1004,
 }
