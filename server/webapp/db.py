@@ -3,6 +3,7 @@
 import os
 import shelve
 import fcntl
+import time
 from flask import current_app as app
 from webapp.share import LockFile
 from webapp.exception import MonitorShelveOpenError
@@ -27,7 +28,7 @@ class ShelveProxy(object):
             __open_shelve__(db_name, flag="r") as db:
             # 上文件锁 打开db
             end_time = int(time.time() * 1000)
-            app.logger.info("[get] lock and open db cost : %s" % end_time - start_time)
+            app.logger.info("[get] lock and open db cost : %s" % (end_time - start_time))
             if key:
                 return {key : db.get(key, [])}
             dic = {}
@@ -44,7 +45,7 @@ class ShelveProxy(object):
             __open_shelve__(db_name, flag="r") as db:
             # 上文件锁 打开db
             end_time = int(time.time() * 1000)
-            app.logger.info("[keys] lock and open db cost : %s" % end_time - start_time)
+            app.logger.info("[keys] lock and open db cost : %s" % (end_time - start_time))
             for k in db.keys():
                 ks.append(k)
         return ks
