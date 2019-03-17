@@ -20,7 +20,7 @@ class ShelveProxy(object):
     def __init__(self, db_home):
         self._db_home = db_home
 
-    @local_cache
+    @local_cache()
     def get_count_info(self, date, key):
         db_name = "%s/counter-%s" % (self._db_home, date)
         lock_name = "%s/lock-%s" % (self._db_home, date)
