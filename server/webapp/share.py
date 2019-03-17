@@ -2,7 +2,10 @@
 
 import fcntl
 import time
+import functools
 from flask import jsonify
+from werkzeug.contrib.cache import SimpleCache
+
 from webapp.proto import EnumErrorCode
 
 class Result(object):
@@ -58,3 +61,34 @@ class Watcher:
         '''请求标识
         '''
         return id(self)
+
+__simple_cache__ = SimpleCache(threshold=50000, default_timeout=60)
+
+def local_cache(default_timeout=60, logger=None):
+    ''' 本地缓存
+    暂不支持命名参数
+    '''
+    def deractor(f):
+        @functools.wraps(f)
+        def inner(*ks, cache=True, **kws):
+            if len(kws) != 0 and logger:
+                logger.warning("cache parameter type invalid")
+            # 仅仅支持str, int ,float, list类型的参数
+            nks = [getattr(f, "__name__")]
+            for k in ks:
+                if not isinstance(k, (str, int, float, list)):
+                    if logger:
+                        logger.warning("cache parameter type invalid")
+                    return f(*ks, **kws)
+                nks.append(str(k))
+            result = None
+            link_ks = "-".join(nks)
+            if cache == True:
+                result = __simple_cache__.get(link_ks)
+            if result is not None:
+                return result
+            result = f(*ks, **kws)
+            __simple_cache__.set(link_ks, result, timeout=default_timeout)
+            return result
+        return inner
+    return deractor

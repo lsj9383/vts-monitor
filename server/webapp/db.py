@@ -5,7 +5,7 @@ import shelve
 import fcntl
 import time
 from flask import current_app as app
-from webapp.share import LockFile
+from webapp.share import LockFile, local_cache
 from webapp.exception import MonitorShelveOpenError
 
 def __open_shelve__(db_name, flag):
@@ -20,6 +20,7 @@ class ShelveProxy(object):
     def __init__(self, db_home):
         self._db_home = db_home
 
+    @local_cache
     def get_count_info(self, date, key):
         db_name = "%s/counter-%s" % (self._db_home, date)
         lock_name = "%s/lock-%s" % (self._db_home, date)
@@ -36,6 +37,7 @@ class ShelveProxy(object):
                 dic[k] = db[k]
             return dic
 
+    @local_cache()
     def keys(self, date):
         db_name = "%s/counter-%s" % (self._db_home, date)
         lock_name = "%s/lock-%s" % (self._db_home, date)
