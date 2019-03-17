@@ -33,16 +33,7 @@ def count_info_pretty():
     key = request.args.get("key")
 
     db_proxy = current_app.shelve_proxy
-    count_infos = db_proxy.get_count_info(date, key)
-    for k, v in count_infos.items():
-        for item in v:
-            if len(item) != 3:
-                continue
-            start = time.strftime('%H:%M:%S',time.localtime(item[0]))
-            end = time.strftime('%H:%M:%S',time.localtime(item[1]))
-            item[0] = start
-            item[1] = end
-    return json.dumps(count_infos)
+    return json.dumps(db_proxy.get_count_info_pretty(date, key))
 
 
 # shelve的获取keys
