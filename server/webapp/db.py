@@ -20,7 +20,6 @@ class ShelveProxy(object):
     def __init__(self, db_home):
         self._db_home = db_home
 
-    @local_cache()
     def get_count_info(self, date, key):
         db_name = "%s/counter-%s" % (self._db_home, date)
         lock_name = "%s/lock-%s" % (self._db_home, date)
@@ -37,20 +36,6 @@ class ShelveProxy(object):
                 dic[k] = db[k]
             return dic
 
-    @local_cache()
-    def get_count_info_pretty(self, date, key):
-        count_infos = self.get_count_info(date, key)
-        for k, v in count_infos.items():
-            for item in v:
-                if len(item) != 3:
-                    continue
-                start = time.strftime('%H:%M:%S',time.localtime(item[0]))
-                end = time.strftime('%H:%M:%S',time.localtime(item[1]))
-                item[0] = start
-                item[1] = end
-        return count_infos
-
-    @local_cache()
     def keys(self, date):
         db_name = "%s/counter-%s" % (self._db_home, date)
         lock_name = "%s/lock-%s" % (self._db_home, date)
