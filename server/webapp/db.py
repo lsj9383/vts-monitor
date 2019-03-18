@@ -59,3 +59,4 @@ class ShelveProxy(object):
             if len(parts) != 2:
                 continue
             ks.add(parts[0])
+        return list(ks)
