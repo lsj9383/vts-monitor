@@ -41,7 +41,7 @@ def shelve_keys():
 
 # 获取所有的时间
 @blue_print.route('/dates')
-def shelve_keys():
+def shelve_dates():
     db_proxy = current_app.shelve_proxy
     return json.dumps(db_proxy.dates())
 
