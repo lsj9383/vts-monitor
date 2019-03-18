@@ -42,14 +42,14 @@ $ crontab -e
 
 ### 1.*接口的调用次数*
 ```sh
-(GET) http://host:port/webapi/get
+(GET) http://host:port/monitor/get
 
 # 参数(urlencode)
 key : <接口名>, 获得指定接口的调用次数, 若没有指明则会返回所有接口的调用次数
 date : <日期>, 指明获得哪天的接口调用数据, 格式为:%Y-%m-%d
 
 # 响应
-响应上是各个时间段的调用次数, 时间段用时间戳stamp表示, 若希望获得格式化的显示可以使用`/webapi/get/pretty`接口
+响应上是各个时间段的调用次数, 时间段用时间戳stamp表示, 若希望获得格式化的显示可以使用`/monitor/get/pretty`接口
 {
     "<key-name-1>" : [
         [<start-timestamp>, <end-timestamp>, <number>],
@@ -65,7 +65,7 @@ date : <日期>, 指明获得哪天的接口调用数据, 格式为:%Y-%m-%d
 }
 
 # DEMO
-http://test.topbook.cc:5000/monitor/get?key=/webapi/user/profile
+http://test.topbook.cc:5000/monitor/get?key=/monitor/user/profile
 ```
 ### 2.*获得请求名称*
 ```sh
