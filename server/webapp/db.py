@@ -49,3 +49,13 @@ class ShelveProxy(object):
             for k in db.keys():
                 ks.append(k)
         return ks
+
+    def dates(self):
+        ks = set()
+        for fname in os.listdir(self._db_home):
+            if not fname.startswith("counter-"):
+                continue
+            parts = fname.split(".")
+            if len(parts) != 2:
+                continue
+            ks.add(parts[0])

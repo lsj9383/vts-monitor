@@ -26,7 +26,7 @@ def create_app(configure):
     app.logger.addHandler(file_handler)
 
     # 注册蓝图
-    app.register_blueprint(webapi.blue_print, url_prefix='/webapi')
+    app.register_blueprint(webapi.blue_print, url_prefix='/monitor')
 
     # 注册钩子
     hook.register(app)

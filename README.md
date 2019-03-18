@@ -65,11 +65,11 @@ date : <日期>, 指明获得哪天的接口调用数据, 格式为:%Y-%m-%d
 }
 
 # DEMO
-http://test.topbook.cc:5000/webapi/get?key=/webapi/user/profile
+http://test.topbook.cc:5000/monitor/get?key=/webapi/user/profile
 ```
 ### 2.*获得请求名称*
 ```sh
-(GET) http://host:port/webapi/keys
+(GET) http://host:port/monitor/keys
 
 # 响应
 [
@@ -79,7 +79,7 @@ http://test.topbook.cc:5000/webapi/get?key=/webapi/user/profile
 ]
 
 # DEMO
-http://test.topbook.cc:5000/webapi/keys
+http://test.topbook.cc:5000/monitor/keys
 ```
 
 ## 三、解决方案

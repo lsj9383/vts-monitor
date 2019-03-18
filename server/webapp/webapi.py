@@ -39,6 +39,12 @@ def shelve_keys():
     date = request.args.get("date", today)
     return _get_keys(date)
 
+# 获取所有的时间
+@blue_print.route('/dates')
+def shelve_keys():
+    db_proxy = current_app.shelve_proxy
+    return json.dumps(db_proxy.dates())
+
 @local_cache()
 def _get_count_info(date, key):
     db_proxy = current_app.shelve_proxy
